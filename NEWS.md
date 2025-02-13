@@ -1,5 +1,7 @@
 # User visible changes in `Backport`
 
+# Version 0.1.2
+
 - `@backport` macro to automatically inserts `using Backport: ...` statements depending
   on Julia version.
 
