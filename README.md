@@ -25,7 +25,19 @@ using Backport
 Method `mapreduce` with more than one iterator was introduced in Julia 1.2:
 
 ``` julia
-mapreduce(f, op, itrs...; kwds...)
+Backport.mapreduce(f, op, itrs...; kwds...)
+```
+
+Note that, to avoid type-piracy `Backport.mapreduce` is distinct from `Base.mapreduce`,
+its use must therefore be qualified by the `Backport.` prefix. Inside a module it is
+possible to use `mapreduce` without prefix with something like:
+
+``` julia
+module Foo
+using Backport
+using Backport: mapreduce
+...
+end # module
 ```
 
 Type `Returns` was introduced in Julia 1.7:
@@ -42,8 +54,8 @@ The `public` keyword was introduced in Julia 1.11; as a replacement:
 @public foo [bar ...]
 ```
 
-declare symbols `foo`, `bar`, etc. as `public` in Julia ≥ 1.11 and does nothing with older
-Julia versions.
+declares symbols `foo`, `bar`, etc. as `public` in Julia ≥ 1.11 and does nothing with
+older Julia versions.
 
 ## Installation
 

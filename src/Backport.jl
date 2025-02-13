@@ -7,7 +7,6 @@ if VERSION < v"1.2.0-rc1"
     mapreduce(f, op, itr; kw...) = Base.mapreduce(f, op, itr; kw...)
     mapreduce(f, op, itrs...; kw...) = Base.reduce(op, Base.Generator(f, itrs...); kw...)
     mapreduce(args...; kwds...) = Base.mapreduce(args...; kwds...)
-    eval("export mapreduce")
 end
 
 if VERSION < v"1.7.0-beta1"
@@ -18,7 +17,7 @@ if VERSION < v"1.7.0-beta1"
         Returns(value::T) where {T} = new{T}(value)
     end
     (obj::Returns)(@nospecialize(args...); @nospecialize(kwds...)) = obj.value
-    eval("export Returns")
+    eval(:(export Returns))
 end
 
 """
