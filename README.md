@@ -13,7 +13,14 @@ Once [installed](#installation), just do:
 
 ``` julia
 using Backport
+@backport
 ```
+
+where `using Backport` loads the package and brings into scope some symbols while
+`@backport` automatically uses replacement methods/symbols from `Backport` depending on
+the Julia version. These 2 steps are needed to avoid conflicts with existing definitions.
+For example, without the 2nd step and in Julia older than 1.2, the `mapreduce` replacement
+method must be qualified, that is called as `Backport.mapreduce(...)`.
 
 
 ## Related projects
@@ -28,34 +35,32 @@ using Backport
 Method `mapreduce` with more than one iterator was introduced in Julia 1.2:
 
 ``` julia
-Backport.mapreduce(f, op, itrs...; kwds...)
+mapreduce(f, op, itrs...; kwds...)
 ```
 
-Note that, to avoid type-piracy `Backport.mapreduce` is distinct from `Base.mapreduce`,
-its use must therefore be qualified by the `Backport.` prefix. Inside a module it is
-possible to use `mapreduce` without prefix with something like:
+To avoid type-piracy `Backport.mapreduce` is distinct from `Base.mapreduce`, its use must
+therefore be qualified by the `Backport.` prefix if you do not call the `@backport` macro.
+For Julia version < 1.2, this macro produces (among other things) the equivalent of:
 
 ``` julia
-module Foo
-using Backport
 using Backport: mapreduce
-...
-end # module
 ```
+
+in the code.
 
 
 ### `Memory{T}`
 
 Type `Memory{T}` was introduced in Julia 1.11 to represent a fixed-size dense vector of
-elements of type `T`. On older Julia versions, `Backport` define `Memory{T}` as an alias
+elements of type `T`. On older Julia versions, `Backport` defines `Memory{T}` as an alias
 to `Vector{T}` so that:
 
 ``` julia
 Memory{T}(undef, n)
 ```
 
-yields a dense vector of elements of type `T`. Apart a small performance reduction, the
-main difference is that the result is not fixed-size but resizable.
+yields a dense vector of `n` elements of type `T`. The main difference is that the result
+is not fixed-size but resizable.
 
 
 ### `Returns`

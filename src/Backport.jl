@@ -1,6 +1,31 @@
 module Backport
 
-export @public
+export @public, @backport
+
+"""
+    @backport
+
+imports in a module the symbols defined by `Backport` to emulate features appearing in
+more recent Julia versions than that of the Julia executing the code.
+
+Typical usage is:
+
+```julia
+module Foo
+    using Backport
+    @backport
+
+    # Module code here.
+end # module
+```
+
+"""
+macro backport()
+    expr = Expr(:block)
+    #VERSION < v"1.2.0-rc1" && push!(expr, :(const mapreduce = Backport.mapreduce))
+    VERSION < v"1.2.0-rc1" && push!(expr.args, :(using Backport: mapreduce))
+    esc(expr)
+end
 
 if VERSION < v"1.2.0-rc1"
     # `mapreduce` is not implemented for multiple iterators prior to Julia 1.2.

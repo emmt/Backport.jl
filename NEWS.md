@@ -1,5 +1,8 @@
 # User visible changes in `Backport`
 
+- `@backport` macro to automatically inserts `using Backport: ...` statements depending
+  on Julia version.
+
 # Version 0.1.1
 
 - `Memory{T}` is an alias for `Vector{T}` on Julia versions < 1.11.
