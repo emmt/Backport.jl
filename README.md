@@ -79,11 +79,11 @@ yields a callable object `f` such that `f(args...; kwds...)` always yields `val`
 The `public` keyword was introduced in Julia 1.11; as a replacement:
 
 ``` julia
-@public foo [bar ...]
+@public foo bar [...]
 ```
 
-declares symbols `foo`, `bar`, etc. as `public` in Julia ≥ 1.11 and does nothing with
-older Julia versions.
+declares symbols `foo`, `bar`, etc. as `public` in Julia ≥ 1.11 and does nothing in older
+Julia versions.
 
 
 ## Installation
@@ -95,7 +95,7 @@ using Pkg
 Pkg.add(url="https://github.com/emmt/Backport.jl")
 ```
 
-or from the prompt of Julia's package manager (after typing `]` in Julia's REPL):
+or at the prompt of Julia's package manager (after typing `]` in Julia's REPL):
 
 ``` julia
 add https://github.com/emmt/Backport.jl
@@ -111,5 +111,5 @@ registry add https://github.com/emmt/EmmtRegistry
 add Backport
 ```
 
-Adding the `General` registry (2nd line of the above example) is mandatory to have access
+Adding the `General` registry (1st line of the above example) is mandatory to have access
 to the official Julia packages if you never have used the package manager before.
