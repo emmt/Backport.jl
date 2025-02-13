@@ -28,6 +28,14 @@ Method `mapreduce` with more than one iterator was introduced in Julia 1.2:
 mapreduce(f, op, itrs...; kwds...)
 ```
 
+Type `Returns` was introduced in Julia 1.7:
+
+``` julia
+f = Returns(val)
+```
+
+yields a callable object `f` such that `f(args...; kwds...)` always yields `val`.
+
 ## Installation
 
 To install `Backport` so as to follow the main development branch:
