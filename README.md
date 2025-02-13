@@ -15,12 +15,15 @@ Once [installed](#installation), just do:
 using Backport
 ```
 
+
 ## Related projects
 
 [`Compat`](https://github.com/JuliaLang/Compat.jl) has a similar objective but via a
 `@compat` macro and does not backport some useful things.
 
 ## Features
+
+### `mapreduce` with more than one iterator
 
 Method `mapreduce` with more than one iterator was introduced in Julia 1.2:
 
@@ -40,6 +43,23 @@ using Backport: mapreduce
 end # module
 ```
 
+
+### `Memory{T}`
+
+Type `Memory{T}` was introduced in Julia 1.11 to represent a fixed-size dense vector of
+elements of type `T`. On older Julia versions, `Backport` define `Memory{T}` as an alias
+to `Vector{T}` so that:
+
+``` julia
+Memory{T}(undef, n)
+```
+
+yields a dense vector of elements of type `T`. Apart a small performance reduction, the
+main difference is that the result is not fixed-size but resizable.
+
+
+### `Returns`
+
 Type `Returns` was introduced in Julia 1.7:
 
 ``` julia
@@ -47,6 +67,9 @@ f = Returns(val)
 ```
 
 yields a callable object `f` such that `f(args...; kwds...)` always yields `val`.
+
+
+### `public`
 
 The `public` keyword was introduced in Julia 1.11; as a replacement:
 
@@ -56,6 +79,7 @@ The `public` keyword was introduced in Julia 1.11; as a replacement:
 
 declares symbols `foo`, `bar`, etc. as `public` in Julia ≥ 1.11 and does nothing with
 older Julia versions.
+
 
 ## Installation
 
