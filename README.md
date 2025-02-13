@@ -36,6 +36,15 @@ f = Returns(val)
 
 yields a callable object `f` such that `f(args...; kwds...)` always yields `val`.
 
+The `public` keyword was introduced in Julia 1.11; as a replacement:
+
+``` julia
+@public foo [bar ...]
+```
+
+declare symbols `foo`, `bar`, etc. as `public` in Julia ≥ 1.11 and does nothing with older
+Julia versions.
+
 ## Installation
 
 To install `Backport` so as to follow the main development branch:
