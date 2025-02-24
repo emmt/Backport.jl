@@ -2,9 +2,9 @@
 
 [![Build Status](https://github.com/emmt/Backport.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/emmt/Backport.jl/actions/workflows/CI.yml?query=branch%3Amain) [![Build Status](https://ci.appveyor.com/api/projects/status/github/emmt/Backport.jl?svg=true)](https://ci.appveyor.com/project/emmt/Backport-jl) [![Coverage](https://codecov.io/gh/emmt/Backport.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/emmt/Backport.jl)
 
-`Backport` intends to make your code run on older [Julia](http://julialang.org/) versions.
+`Backport` helps to make your code run on older [Julia](http://julialang.org/) versions.
 This package takes advantage on the fact that many features introduced by new Julia
-versions are written in Julia itself and are thus easy to backport into older Julia
+versions are written in Julia itself and are thus easy to back-port into older Julia
 versions and make them more widely available.
 
 ## Usage
@@ -39,16 +39,19 @@ Method `mapreduce` with more than one iterator was introduced in Julia 1.2:
 mapreduce(f, op, itrs...; kwds...)
 ```
 
-To avoid type-piracy `Backport.mapreduce` is distinct from `Base.mapreduce`, its use must
-therefore be qualified by the `Backport.` prefix if you do not call the `@backport` macro.
-For Julia version < 1.2, this macro produces (among other things) the equivalent of:
+To back-port this feature in your code:
 
 ``` julia
-using Backport: mapreduce
+using Backport
+@backport
 ```
 
-in the code.
+or
 
+``` julia
+using Backport
+using Backport: mapreduce
+```
 
 ### `Memory{T}`
 
