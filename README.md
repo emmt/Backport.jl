@@ -19,8 +19,9 @@ using Backport
 where `using Backport` loads the package and brings into scope some symbols while
 `@backport` automatically uses replacement methods/symbols from `Backport` depending on
 the Julia version. These 2 steps are needed to avoid conflicts with existing definitions.
-For example, without the 2nd step and in Julia older than 1.2, the `mapreduce` replacement
-method must be qualified, that is called as `Backport.mapreduce(...)`.
+For example, without the 2nd step and in Julia older than 1.2, the `mapreduce`, `reverse`,
+and `reverse!` replacement methods must be qualified, that is called as
+`Backport.mapreduce(...)`, `Backport.reverse(...)`, etc.
 
 
 ## Related projects
@@ -73,6 +74,23 @@ f = Returns(val)
 
 yields a callable object `f` such that `f(args...; kwds...)` always yields `val`.
 
+
+### `reverse` and `reverse!` along all dimensions
+
+Prior to Julia 1.6, `reverse(A; dims=:)` and `reverse!(A; dims=:)` to reverse array `A`
+along all its dimensions was not implemented. To back-port this feature in your code:
+
+``` julia
+using Backport
+@backport
+```
+
+or
+
+``` julia
+using Backport
+using Backport: reverse, reverse!
+```
 
 ### `public`
 

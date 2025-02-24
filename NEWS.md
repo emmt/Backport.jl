@@ -1,5 +1,8 @@
 # User visible changes in `Backport`
 
+- Provide `reverse(A; dims=:)` and `reverse!(A; dims=:)` to reverse array `A` along all
+  its dimensions, a possibility that appears in Julia 1.6.
+
 # Version 0.1.2
 
 - `@backport` macro to automatically inserts `using Backport: ...` statements depending
