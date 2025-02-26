@@ -22,7 +22,6 @@ end # module
 """
 macro backport()
     expr = Expr(:block)
-    #VERSION < v"1.2.0-rc1" && push!(expr, :(const mapreduce = Backport.mapreduce))
     VERSION < v"1.2.0-rc1" && push!(expr.args, :(using Backport: mapreduce))
     VERSION < v"1.6.0-beta1" && push!(expr.args, :(using Backport: reverse, reverse!))
     esc(expr)
