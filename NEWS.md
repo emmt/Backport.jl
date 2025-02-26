@@ -1,5 +1,7 @@
 # User visible changes in `Backport`
 
+# Version 0.1.3
+
 - Provide `reverse(A; dims=:)` and `reverse!(A; dims=:)` to reverse array `A` along all
   its dimensions, a possibility that appears in Julia 1.6.
 
