@@ -104,11 +104,10 @@ tools.
 
 """
 macro public(args::Union{Symbol,Expr}...)
-    if VERSION ≥ v"1.11.0-DEV.469"
-        esc(Expr(:public, args...))
-    else
-        nothing
-    end
+    VERSION ≥ v"1.11.0-DEV.469" ? esc(Expr(:public, map(
+        x -> x isa Symbol ? x :
+            x isa Expr && x.head == :macrocall ? x.args[1] :
+            error("unexpected argument `$x` to `@public`"), args)...)) : nothing
 end
 
 end
