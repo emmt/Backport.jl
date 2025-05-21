@@ -1,20 +1,32 @@
 # User visible changes in `Backport`
 
-# Version 0.1.3
+This page describes the most important changes in `Backport`. The format is based on [Keep
+a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic
+Versioning](https://semver.org/spec).
+
+## Version 0.1.3 (20205-02-26)
+
+### Added
 
 - Provide `reverse(A; dims=:)` and `reverse!(A; dims=:)` to reverse array `A` along all
   its dimensions, a possibility that appears in Julia 1.6.
 
-# Version 0.1.2
+## Version 0.1.2 (20205-02-13)
+
+### Added
 
 - `@backport` macro to automatically inserts `using Backport: ...` statements depending
   on Julia version.
 
-# Version 0.1.1
+## Version 0.1.1 (20205-02-13)
+
+### Added
 
 - `Memory{T}` is an alias for `Vector{T}` on Julia versions < 1.11.
 
-# Version 0.1.0
+## Version 0.1.0 (20205-02-13)
+
+### Added
 
 - `mapreduce(f, op, itrs...; kwds...)` to extend `mapreduce` for multiple iterators.
 
