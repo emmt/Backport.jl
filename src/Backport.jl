@@ -24,6 +24,7 @@ macro backport()
     expr = Expr(:block)
     VERSION < v"1.2.0-rc1" && push!(expr.args, :(using Backport: mapreduce))
     VERSION < v"1.6.0-beta1" && push!(expr.args, :(using Backport: reverse, reverse!))
+    VERSION < v"1.6.0-beta1" && push!(expr.args, :(using Backport: signed))
     esc(expr)
 end
 
@@ -92,6 +93,18 @@ if VERSION < v"1.6.0-beta1"
             A[j] = Ai
         end
         return A
+    end
+end
+
+if VERSION < v"1.6.0-beta1"
+    signed(args...; kwds...) = Base.signed(args...; kwds...)
+    signed(::Type{Bool}) = Int
+    if VERSION < v"1.5.0-beta1"
+        for (U, S) in (:UInt8 => :Int8, :UInt16 => :Int16, :UInt32 => :Int32,
+                       :UInt64 => :Int64, :UInt128 => :Int128)
+            @eval signed(::Type{$U}) = $S
+        end
+        signed(::Type{T}) where {T<:Signed} = T
     end
 end
 

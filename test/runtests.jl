@@ -117,4 +117,27 @@ using Test
             end
         end
     end
+
+    @testset "`signed($T) -> $S`" for (T, S) in (Bool    => Int,
+                                                 UInt8   => Int8,   Int8   => Int8,
+                                                 UInt16  => Int16,  Int16  => Int16,
+                                                 UInt32  => Int32,  Int32  => Int32,
+                                                 UInt64  => Int64,  Int64  => Int64,
+                                                 UInt128 => Int128, Int128 => Int128,
+                                                 BigInt  => BigInt)
+        # Check new behavior.
+        @test signed(T) === S
+
+        # Check previously existing behavior.
+        if isbitstype(T)
+            @test signed(zero(T)) === zero(S)
+            @test signed(one(T)) === one(S)
+        else
+            @test signed(zero(T)) == zero(S)
+            @test typeof(signed(zero(T))) === S
+            @test signed(one(T)) == one(S)
+            @test typeof(signed(one(T))) === S
+        end
+    end
+
 end

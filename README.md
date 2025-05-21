@@ -95,6 +95,24 @@ using Backport
 using Backport: reverse, reverse!
 ```
 
+### `signed(T::Type)`
+
+Method `signed(T)` for `T<:Integer` appeared in Julia 1.5 and `signed(Bool)` appeared in
+Julia 1.6 to yield the signed counterpart of an unsigned integer type. To back-port this
+feature in your code:
+
+``` julia
+using Backport
+@backport
+```
+
+or
+
+``` julia
+using Backport
+using Backport: signed
+```
+
 ### `public`
 
 The `public` keyword was introduced in Julia 1.11; as a replacement:

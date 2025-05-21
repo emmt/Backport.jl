@@ -10,6 +10,11 @@ Versioning](https://semver.org/spec).
 
 - Macro `@public` can deal with simple macros names prefixed by `@`.
 
+### Added
+
+- Provide `signed(T)` for `T<:Integer` appearing in Julia 1.5 and `signed(Bool)` appearing
+  in Julia 1.6.
+
 ## Version 0.1.3 (20205-02-26)
 
 ### Added
