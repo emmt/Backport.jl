@@ -10,6 +10,12 @@ Versioning](https://semver.org).
 
 - `inv(x)` for irrational number `x` appearing in Julia 1.2.
 
+### Changed
+
+- `@backport [args...]` imports all relevant symbols with no arguments (as before); or
+  just the ones specified by `args...`.
+
+
 ## Version 0.1.4 (20205-05-21)
 
 ### Fixed

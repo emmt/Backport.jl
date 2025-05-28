@@ -4,28 +4,38 @@ export @public, @backport
 
 """
     @backport
+    @backport mapreduce signed ...
 
-imports in a module the symbols defined by `Backport` to emulate features appearing in
-more recent Julia versions than that of the Julia executing the code.
+import in the current module the symbols defined by `Backport` to emulate features
+appearing in more recent Julia versions. Without arguments, all symbols defined by
+`Backport` and relevant for the running Julia version are imported; otherwise, only the
+specified symbols are imported.
 
 Typical usage is:
 
 ```julia
 module Foo
     using Backport
-    @backport
+    @backport [args...]
 
     # Module code here.
 end # module
 ```
 
 """
-macro backport()
+macro backport(args::Symbol...)
     expr = Expr(:block)
-    VERSION < v"1.2.0-rc1" && push!(expr.args, :(using Backport: mapreduce))
-    VERSION < v"1.6.0-beta1" && push!(expr.args, :(using Backport: reverse, reverse!))
-    VERSION < v"1.6.0-beta1" && push!(expr.args, :(using Backport: signed))
-    VERSION < v"1.2.0-rc2" && push!(expr.args, :(using Backport: inv))
+    for (vmin, sym) in (
+        v"1.2.0-rc1"   => :mapreduce,
+        v"1.2.0-rc2"   => :inv,
+        v"1.5.0-beta1" => :signed,
+        v"1.6.0-beta1" => :reverse!,
+        v"1.6.0-beta1" => :reverse,
+        )
+        if VERSION < vmin && (isempty(args) || sym ∈ args)
+            push!(expr.args, :(using Backport: $sym))
+        end
+    end
     esc(expr)
 end
 

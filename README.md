@@ -13,16 +13,32 @@ Once [installed](#installation), just do:
 
 ``` julia
 using Backport
-@backport
 ```
 
-where `using Backport` loads the package and brings into scope a restricted set of symbols
-while `@backport` automatically uses all replacement methods/symbols from `Backport`
-suitable for the running Julia version. These 2 steps are needed to avoid conflicts with
-existing definitions. For example, without executing `@backport`, the `mapreduce` method
-fixing the behavior of this method for Julia older than 1.2 must be qualified, that is
-called as `Backport.mapreduce(...)`. In that case, an alternative is the statement `using
-Backport: mapreduce`.
+where `using Backport` loads the package and brings into scope the restricted set of
+symbols defined in `Backport`, that are relevant for the running Julia version, and that
+do not conflict with existing definitions.
+
+To use some back-ported method like `mapreduce` and `signed`:
+
+``` julia
+using Backport: mapreduce, signed
+```
+
+or use the `@backport` macro:
+
+``` julia
+@backport mapreduce signed
+```
+
+without this, the version of `mapreduce` fixing the behavior of this method for Julia
+older than 1.2 must be qualified, that is called as `Backport.mapreduce(...)`.
+
+To back-port all relevant symbols for the running Julia version:
+
+``` julia
+@backport
+```
 
 
 ## Related projects
@@ -43,13 +59,12 @@ mapreduce(f, op, itrs...; kwds...)
 To back-port this specific feature in your code:
 
 ``` julia
-using Backport: mapreduce
+@backport mapreduce
 ```
 
 or back-port all features with:
 
 ``` julia
-using Backport
 @backport
 ```
 
@@ -86,13 +101,12 @@ along all its dimensions was not implemented. To back-port this feature in your 
 To back-port these specific features in your code:
 
 ``` julia
-using Backport: reverse, reverse!
+@backport reverse reverse!
 ```
 
 or back-port all features with:
 
 ``` julia
-using Backport
 @backport
 ```
 
@@ -105,13 +119,12 @@ feature in your code:
 To back-port this specific feature in your code:
 
 ``` julia
-using Backport: signed
+@backport signed
 ```
 
 or back-port all features with:
 
 ``` julia
-using Backport
 @backport
 ```
 
@@ -123,13 +136,12 @@ feature in your code:
 To back-port this specific feature in your code:
 
 ``` julia
-using Backport: inv
+@backport inv
 ```
 
 or back-port all features with:
 
 ``` julia
-using Backport
 @backport
 ```
 
