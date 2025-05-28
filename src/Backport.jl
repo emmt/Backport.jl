@@ -25,6 +25,7 @@ macro backport()
     VERSION < v"1.2.0-rc1" && push!(expr.args, :(using Backport: mapreduce))
     VERSION < v"1.6.0-beta1" && push!(expr.args, :(using Backport: reverse, reverse!))
     VERSION < v"1.6.0-beta1" && push!(expr.args, :(using Backport: signed))
+    VERSION < v"1.2.0-rc2" && push!(expr.args, :(using Backport: inv))
     esc(expr)
 end
 
@@ -106,6 +107,12 @@ if VERSION < v"1.6.0-beta1"
         end
         signed(::Type{T}) where {T<:Signed} = T
     end
+end
+
+if VERSION < v"1.2.0-rc2"
+    # `inv(x)` was not implemented for irrational numbers prior to Julia 1.2.0-rc2
+    @inline inv(args...; kwds...) = Base.inv(args...; kwds...)
+    inv(x::AbstractIrrational) = 1/x
 end
 
 """

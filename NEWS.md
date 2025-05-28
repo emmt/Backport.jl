@@ -4,6 +4,12 @@ This page describes the most important changes in `Backport`. The format is base
 a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic
 Versioning](https://semver.org).
 
+## Unreleased
+
+### Added
+
+- `inv(x)` for irrational number `x` appearing in Julia 1.2.
+
 ## Version 0.1.4 (20205-05-21)
 
 ### Fixed

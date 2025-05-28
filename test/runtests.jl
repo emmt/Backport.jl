@@ -140,4 +140,12 @@ using Test
         end
     end
 
+    @testset "`inv($x)`" for x in (1.0, pi, [1 0; 0 2])
+        if x isa Number
+            @test inv(x) === true/x
+        elseif x == [1 0; 0 2]
+            @test inv(x) == [1//1 0//1; 0//1 1//2]
+        end
+    end
+
 end

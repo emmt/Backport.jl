@@ -115,6 +115,18 @@ using Backport
 @backport
 ```
 
+### `inv` for irrational numbers
+
+Method `inv(x)` for `x` irrational numbers only appeared in Julia 1.2. To back-port this
+feature in your code:
+
+To back-port this specific feature in your code:
+
+``` julia
+using Backport: inv
+```
+
+or back-port all features with:
 
 ``` julia
 using Backport
