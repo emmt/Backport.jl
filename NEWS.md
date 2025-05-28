@@ -4,7 +4,7 @@ This page describes the most important changes in `Backport`. The format is base
 a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic
 Versioning](https://semver.org).
 
-## Unreleased
+## Version 0.1.5 (2025-05-28)
 
 ### Added
 
@@ -15,7 +15,8 @@ Versioning](https://semver.org).
 - `@backport [args...]` imports all relevant symbols with no arguments (as before); or
   just the ones specified by `args...`.
 
-## Version 0.1.4 (20205-05-21)
+
+## Version 0.1.4 (2025-05-21)
 
 ### Fixed
 
@@ -26,27 +27,27 @@ Versioning](https://semver.org).
 - Provide `signed(T)` for `T<:Integer` appearing in Julia 1.5 and `signed(Bool)` appearing
   in Julia 1.6.
 
-## Version 0.1.3 (20205-02-26)
+## Version 0.1.3 (2025-02-26)
 
 ### Added
 
 - Provide `reverse(A; dims=:)` and `reverse!(A; dims=:)` to reverse array `A` along all
   its dimensions, a possibility that appears in Julia 1.6.
 
-## Version 0.1.2 (20205-02-13)
+## Version 0.1.2 (2025-02-13)
 
 ### Added
 
 - `@backport` macro to automatically inserts `using Backport: ...` statements depending
   on Julia version.
 
-## Version 0.1.1 (20205-02-13)
+## Version 0.1.1 (2025-02-13)
 
 ### Added
 
 - `Memory{T}` is an alias for `Vector{T}` on Julia versions < 1.11.
 
-## Version 0.1.0 (20205-02-13)
+## Version 0.1.0 (2025-02-13)
 
 ### Added
 
