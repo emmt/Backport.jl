@@ -43,9 +43,12 @@ To back-port all relevant symbols for the running Julia version:
 
 ## Related projects
 
-[`Compat`](https://github.com/JuliaLang/Compat.jl) has a similar objective but via a
-`@compat` macro and does not back-port some useful things, in particular no substitute for
-the `public` keyword, nor for the methods .
+[`Compat.jl`](https://github.com/JuliaLang/Compat.jl) has a similar objective and provides
+many other fixes than `Backport.jl` currently do. However, `Compat.jl` does not back-port
+some useful things like a substitute for the `public` keyword and fixes for `inv`,
+`mapreduce`, etc. Besides, `Compat.jl` does not provide its fixes for all Julia versions
+(e.g. Compat v4 requires at least Julia v1.6), while `Backport` aims at fixing things for
+Julia ≥ 1.0 with no restrictions.
 
 
 ## Features
