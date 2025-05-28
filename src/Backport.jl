@@ -28,9 +28,9 @@ macro backport(args::Symbol...)
     for (vmin, sym) in (
         v"1.2.0-rc1"   => :mapreduce,
         v"1.2.0-rc2"   => :inv,
-        v"1.5.0-beta1" => :signed,
         v"1.6.0-beta1" => :reverse!,
         v"1.6.0-beta1" => :reverse,
+        v"1.6.0-beta1" => :signed,
         )
         if VERSION < vmin && (isempty(args) || sym ∈ args)
             push!(expr.args, :(using Backport: $sym))
