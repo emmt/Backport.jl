@@ -4,6 +4,17 @@ This page describes the most important changes in `Backport`. The format is base
 a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic
 Versioning](https://semver.org).
 
+## Unreleased
+
+### Changed
+
+- Whatever the version of Julia, all fixed methods are defined in the `Backport` module
+  and fall-back to calling the base method when called with other arguments than those
+  expected. For example, `Backport.inv` and `Base.inv` are two different things and only
+  the behavior of `Backport.inv` may change if the running Julia is too old. This avoids
+  type-piracy.
+
+
 ## Version 0.1.5 (2025-05-28)
 
 ### Added

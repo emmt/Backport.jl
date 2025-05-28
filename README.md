@@ -44,7 +44,9 @@ To back-port all relevant symbols for the running Julia version:
 ## Related projects
 
 [`Compat`](https://github.com/JuliaLang/Compat.jl) has a similar objective but via a
-`@compat` macro and does not backport some useful things.
+`@compat` macro and does not back-port some useful things, in particular no substitute for
+the `public` keyword, nor for the methods .
+
 
 ## Features
 
@@ -71,7 +73,7 @@ or back-port all features with:
 ### `Memory{T}`
 
 Type `Memory{T}` was introduced in Julia 1.11 to represent a fixed-size dense vector of
-elements of type `T`. On older Julia versions, `Backport` defines `Memory{T}` as an alias
+elements of type `T`. In older Julia versions, `Backport` defines `Memory{T}` as an alias
 to `Vector{T}` so that:
 
 ``` julia
@@ -155,6 +157,14 @@ The `public` keyword was introduced in Julia 1.11; as a replacement:
 
 declares symbols `foo`, `bar`, etc. as `public` in Julia ≥ 1.11 and does nothing in older
 Julia versions.
+
+## Extending methods
+
+Substitute methods are implemented in `Backport.jl` avoiding type-piracy. This is done by
+having a method like `inv` be defined in the `Backport` module so as to fix the behavior
+for specific arguments that falls-back to calling the base method for other arguments. For
+a method like `inv`, `Backport.inv` and `Base.inv` are two different things that can be
+called or extended separately (provided the method be qualified by the module prefix).
 
 
 ## Installation

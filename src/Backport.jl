@@ -2,6 +2,11 @@ module Backport
 
 export @public, @backport
 
+# Fall-back methods call the base ones.
+for f in (:inv, :mapreduce, :reverse!, :reverse, :signed)
+    @eval @inline $f(args...; kwds...) = Base.$f(args...; kwds...)
+end
+
 """
     @backport
     @backport mapreduce signed ...
@@ -43,7 +48,6 @@ if VERSION < v"1.2.0-rc1"
     # `mapreduce` is not implemented for multiple iterators prior to Julia 1.2.
     mapreduce(f, op, itr; kw...) = Base.mapreduce(f, op, itr; kw...)
     mapreduce(f, op, itrs...; kw...) = Base.reduce(op, Base.Generator(f, itrs...); kw...)
-    mapreduce(args...; kwds...) = Base.mapreduce(args...; kwds...)
 end
 
 if VERSION < v"1.11.0-alpha1"
@@ -80,8 +84,6 @@ if VERSION < v"1.6.0-beta1"
     # Prior to Julia 1.6, `reverse` for all dimensions is not defined and `reverse!` does
     # not accept keywords. NOTE Helper functions `_reverse` and `_reverse!` are introduced
     # for inference to work.
-    reverse(args...; kwds...) = Base.reverse(args...; kwds...)
-    reverse!(args...; kwds...) = Base.reverse!(args...; kwds...)
     reverse(A::AbstractArray; dims = :) = _reverse(A, dims)
     reverse!(A::AbstractArray; dims = :) = _reverse!(A, dims)
     _reverse(A::AbstractVector, d::Integer) =
@@ -108,7 +110,6 @@ if VERSION < v"1.6.0-beta1"
 end
 
 if VERSION < v"1.6.0-beta1"
-    signed(args...; kwds...) = Base.signed(args...; kwds...)
     signed(::Type{Bool}) = Int
     if VERSION < v"1.5.0-beta1"
         for (U, S) in (:UInt8 => :Int8, :UInt16 => :Int16, :UInt32 => :Int32,
@@ -121,7 +122,6 @@ end
 
 if VERSION < v"1.2.0-rc2"
     # `inv(x)` was not implemented for irrational numbers prior to Julia 1.2.0-rc2
-    @inline inv(args...; kwds...) = Base.inv(args...; kwds...)
     inv(x::AbstractIrrational) = 1/x
 end
 
