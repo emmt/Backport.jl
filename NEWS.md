@@ -4,6 +4,13 @@ This page describes the most important changes in `Backport`. The format is base
 a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic
 Versioning](https://semver.org).
 
+## Unreleased
+
+### Fixed
+
+- Syntax `@public a, b, c` is allowed.
+
+
 ## Version 0.1.6 (2025-05-28)
 
 ### Changed
